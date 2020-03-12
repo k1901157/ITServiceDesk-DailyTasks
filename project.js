@@ -1,19 +1,19 @@
 //code of welcome message.
-var exercise1 = new Vue({
+var welcomeMessage = new Vue({
     el: '#welcomeMessage',
     data: {
         message: 'Welcome to IT Service Desk - Daily Tasks!' ,//variable for welcome message.
     }
 })
 //code for greeting message.
-var exercise3 = new Vue({
+var greetingMessage = new Vue({
     el: '#greetingMessage',
     data: {
         morning: new Date().getHours()<12 //check the current hour.
     }
 })
 //code to add names.
-var app = new Vue({
+var addName = new Vue({
   el: '#addName',
   data: {
     title: "Add First and Last Name", //variable for Add Name.
@@ -30,7 +30,7 @@ var app = new Vue({
   el: '#app',
   data: {
     title: "Tasks to be completed ",
-    amount:"Number Of Tasks",
+    amount:"Number of Tasks",
     list: [
         
     ],
@@ -79,7 +79,7 @@ new Vue({
 })
 
 // code for Yearly Evaluation table,
-var exercise4 = new Vue ({
+var yearlyEvaluation = new Vue ({
   el: '#yearlyEvaluation',
   data: {
     title: "Yearly Evaluation",

@@ -3,7 +3,6 @@
     <head>
         <!-- Required meta tags -->
         <meta charset="utf-8">
-        <!--meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"-->
 
         <title>Help Disck Tasks </title>
 
@@ -124,7 +123,7 @@
         <input type="text" Lname="" value="" placeholder="Last Name" v-model="LastName">
         <div></div>
         <br>
-        <button type="button" Fname="button" @click="list.push({ name: FirstName + '   ' + LastName})">Please Add Your Name</button>
+        <button type="button" Fname="button" @click="list.push({ name: FirstName + '   ' + LastName})">Add Your Name</button>
         <ul class="addNameList"><!--adding this class for style purpose-->
         <li v-for="item in list">Hello {{ item.name }}</li>
         </ul>
@@ -152,12 +151,12 @@
             <input
               type="text"
               v-model.trim="search" 
-              placeholder="Search people..."
+              placeholder="Search people..." 
               @keyup="getAllStarWarsPeople"
             /><br />
             <ul class="addNameList">
               <li v-for="person in people" :key="person.id">
-                {{ person.name }}<!--show name after search-->
+                {{ person.name }}<!--show all names-->
               </li>
             </ul>
         </div>
