@@ -1,0 +1,210 @@
+<!doctype html>
+<html>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <!--meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"-->
+
+        <title>Help Disck Tasks </title>
+
+        <style media="screen">
+
+                #welcomeMessage{
+                  font-size: 28px;
+                  font-style: italic;
+                  font-weight: 100;
+                }
+                #greetingMessage{
+                  background-color: burlywood;
+                  cursor: pointer;
+                  text-align: center;
+
+                  box-sizing: content-box;  
+                  width: 150px;
+                  height: 20px;
+                  padding: 10px;  
+                  border: 2px solid black;
+                  color: black;
+                  margin: 30px;
+                }
+                #addName{
+                  background-color: burlywood;
+                  cursor: pointer;
+                  text-align: center;
+                  color: black; 
+                  border: none;
+                  font-size: 16px;
+                  margin: 30px;
+                  border-style: solid;
+                }
+                .addNameList{
+                  list-style-type: none;
+                  margin: 5;
+                  padding: 5;
+                  text-align: left;
+                  }
+                #app{
+                  background-color: burlywood;
+                  position: -webkit-sticky;
+                  position: sticky;
+                  padding: 5px;
+                  border: 2px solid black;
+                  font-family: 'Times New Roman', Times, serif;
+                  color: black;
+                  font-size: 16px;
+                  margin: 30px;
+                }
+                #api{
+                  background-color: burlywood;
+                  cursor: pointer;
+                  text-align: center;
+                  color: black; 
+                  border: none;
+                  font-size: 16px;
+                  margin: 30px;
+                  border-style: solid;
+                }
+
+                #yearlyEvaluation{
+                  background-color: burlywood;
+                  cursor: pointer;
+                  text-align: center;
+                  color: black; 
+                  border: none;
+                  font-size: 16px;
+                  margin: 30px;
+                  border-style: solid;
+                }
+
+            .completed {
+              text-decoration: line-through;
+            }
+            h1 {
+              color:#FF0000;
+            }
+            body {
+                background-color:#FFEFD6;
+                }
+            table, th, td {
+                border: 1px solid black;
+                padding: 5px;
+            }
+            table {
+                border-collapse: collapse;
+            }
+            .yearlyEvaluation{
+                 text-align: left;
+                 margin: 10px;
+                 font-size: 20px;
+            }
+
+          </style>
+    </head>
+
+    <body>
+        <h1>IT Service Desk</h1>
+        <hr/>
+
+        <!-- Welcome message -->
+        <div id="welcomeMessage">
+                <div class="welcomeMessage"> {{ message }} </div>
+        </div>
+        <!-- Greeting message --> <!--Greeting as per the time if it is morning or evening-->
+        <div id="greetingMessage">
+          <span v-if="morning" class="greetingMessage">Good Morning All</span>
+          <span v-else class="greetingMessage">Good Evening All</span>
+        </div>
+        </div>
+        <!-- Add name --> <!--here any user can write hie/her First and Last name-->
+        <div id="addName">
+
+        <h3>{{ title }}</h3>
+        
+        <input type="text" Fname="" value="" placeholder="First Name" v-model="FirstName"></br>
+        <input type="text" Lname="" value="" placeholder="Last Name" v-model="LastName">
+        <div></div>
+        <br>
+        <button type="button" Fname="button" @click="list.push({ name: FirstName + '   ' + LastName})">Please Add Your Name</button>
+        <ul class="addNameList"><!--adding this class for style purpose-->
+        <li v-for="item in list">Hello {{ item.name }}</li>
+        </ul>
+        </div>
+
+        <!--to add daily tasks-->
+        <div id="app">
+            <h3>{{ title }}</h3>
+        <ul><!--once clicked the the task already completed-->
+            <li v-for="item in list" :class="{ completed: item.completed }" @click="item.completed=!item.completed">{{ item.name }}</li>
+        </ul>
+          <input type="text" name="" value="" v-model="newItem">
+          <button type="button" name="button" @click="list.push({ name: newItem, completed: false})">Add Task</button>
+          <button type="button" name="button" @click="list.pop()">Delete the Last Task</button>
+
+           <h4>{{ description }}</h4>
+
+        </div>
+        </div>
+
+        <!--show api and searching the exist names-->
+        <div id="api">
+            <h3>For more infomation please contact one of the below seniors to get advice by calling <a href="">2155</a></h3>
+            <!--adding search field-->
+            <input
+              type="text"
+              v-model.trim="search" 
+              placeholder="Search people..."
+              @keyup="getAllStarWarsPeople"
+            /><br />
+            <ul class="addNameList">
+              <li v-for="person in people" :key="person.id">
+                {{ person.name }}<!--show name after search-->
+              </li>
+            </ul>
+        </div>
+
+          <!--create table to put the numbe of open and closed tasks-->
+          <div id="yearlyEvaluation">
+                <div class="yearlyEvaluation">{{ title }}</div>
+                    <table>
+                        <tr>
+                            <th>Tasks</th>
+                            <th>First Quarter</th>
+                            <th>Second Quarter</th>
+                            <th>Third Quarter</th>
+                            <th>Fourth Quarter</th>
+                            <th>Total</th>
+                        </tr>
+                        <tr>
+                            <td>Opening Tasks</td>
+                            <td><input type="number" v-model.number="tasksFirstQuarter" /></td>
+                            <td><input type="number" v-model.number="tasksSecondQuarter" /></td>
+                            <td><input type="number" v-model.number="tasksThirdQuarter" /></td>
+                            <td><input type="number" v-model.number="tasksFourthQuarter" /></td>
+                            
+                            <td>{{ OpenTasksTotal }}</td><!--total number of open tasks-->
+                        </tr>
+                        <tr>
+                            <td>Closed Tasks</td>
+                            <td v-for="item in closedTasks"><input type="number" v-model.number="item.value" /></td>
+                            <td>{{ closedTasksTotal }}</td><!--total number of closed tasks-->
+                        </tr>
+                        <tr>
+                            <td colspan="2"><strong>Total Tasks per Year</strong></td>
+                            <td><strong>{{ yearTotal }}</strong></td><!--total number of closed and open tasks-->
+                        </tr>
+                    </table>
+                    <p>Your Evaluation this Year is <strong>{{ status }}</strong></p><!--getting evaluation-->
+                </div>
+            </div>
+        </div>
+
+        <hr/><hr/>
+        <footer>&copy; IT Service Desk Managment </footer>
+        <hr/><hr/>
+        <!-- 1. Vue.js added here -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="project.js"></script>
+    </body>
+</html>
