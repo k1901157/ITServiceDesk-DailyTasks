@@ -25,6 +25,46 @@ var addName = new Vue({
     LastName: ''
   }
 })
+
+//code to maps (API).
+var appGoogle = new Vue({
+  el: '#appGoogle ',
+  data: {
+    place: 'Current Location',//show the current location for everyone.
+    latitude: '',
+    longitude: '',
+    active : true
+  },
+  //The watch is used to ensure that the API call only happens when there is at-least 3 character in our input field.
+  watch: { 
+    place: function() {
+      this.latitude = '';
+      this.longitude = '';
+      this.active = true;
+      if (this.place.length >= 3) {
+        this.active = false;
+        this.lookupCoordinates();
+      }
+    }
+  },
+  methods: {
+    lookupCoordinates: _.debounce(function() {
+      var app = this;
+      app.latitude = "Searching...";
+      app.longitude = "Searching...";
+      axios.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + app.place)
+            .then(function (response) {
+              app.latitude = response.data.results[0].geometry.location.lat;
+              app.longitude = response.data.results[0].geometry.location.lng;
+            })
+            .catch(function (error) {
+              app.latitude = "Invalid place";
+              app.longitude = "Invalid place";
+            })
+    }, 500)
+  }
+})
+
 //code to add tasks.
 var app = new Vue({
   el: '#app',

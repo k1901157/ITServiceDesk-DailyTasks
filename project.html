@@ -5,99 +5,8 @@
         <meta charset="utf-8">
 
         <title>Help Disck Tasks </title>
+        <link rel="stylesheet" type="text/css" href="style.css">
 
-        <style media="screen">
-
-                #welcomeMessage{
-                  font-size: 28px;
-                  font-style: italic;
-                  font-weight: 100;
-                }
-                #greetingMessage{
-                  background-color: burlywood;
-                  cursor: pointer;
-                  text-align: center;
-
-                  box-sizing: content-box;  
-                  width: 150px;
-                  height: 20px;
-                  padding: 10px;  
-                  border: 2px solid black;
-                  color: black;
-                  margin: 30px;
-                }
-                #addName{
-                  background-color: burlywood;
-                  cursor: pointer;
-                  text-align: center;
-                  color: black; 
-                  border: none;
-                  font-size: 16px;
-                  margin: 30px;
-                  border-style: solid;
-                }
-                .addNameList{
-                  list-style-type: none;
-                  margin: 5;
-                  padding: 5;
-                  text-align: left;
-                  }
-                #app{
-                  background-color: burlywood;
-                  position: -webkit-sticky;
-                  position: sticky;
-                  padding: 5px;
-                  border: 2px solid black;
-                  font-family: 'Times New Roman', Times, serif;
-                  color: black;
-                  font-size: 16px;
-                  margin: 30px;
-                }
-                #api{
-                  background-color: burlywood;
-                  cursor: pointer;
-                  text-align: center;
-                  color: black; 
-                  border: none;
-                  font-size: 16px;
-                  margin: 30px;
-                  border-style: solid;
-                }
-
-                #yearlyEvaluation{
-                  background-color: burlywood;
-                  cursor: pointer;
-                  text-align: center;
-                  color: black; 
-                  border: none;
-                  font-size: 16px;
-                  margin: 30px;
-                  border-style: solid;
-                }
-
-            .completed {
-              text-decoration: line-through;
-            }
-            h1 {
-              color:#FF0000;
-            }
-            body {
-                background-color:#FFEFD6;
-                }
-            table, th, td {
-                border: 1px solid black;
-                padding: 5px;
-            }
-            table {
-                border-collapse: collapse;
-            }
-            .yearlyEvaluation{
-                 text-align: left;
-                 margin: 10px;
-                 font-size: 20px;
-            }
-
-          </style>
     </head>
 
     <body>
@@ -125,8 +34,22 @@
         <br>
         <button type="button" Fname="button" @click="list.push({ name: FirstName + '   ' + LastName})">Add Your Name</button>
         <ul class="addNameList"><!--adding this class for style purpose-->
-        <li v-for="item in list">Hello {{ item.name }}</li>
+          <li v-for="item in list">Hello {{ item.name }}</li>
         </ul>
+        </div>
+        <!--showing the current location, and also the is an ability to enter your location manually-->
+        <div id="appGoogle">
+          <h3>Enter New Location if you want</h3>
+            <div class="row Map">
+              <input type="text Map" class="form-control input-lg" placeholder="Enter Place Place" v-model="place">
+            </div>
+              <div><h3> Latitude : {{ latitude }}</h3></div>
+              <div><h3> Longitude : {{ longitude }}</h3></div>
+
+              <div v-bind:class="{ 'not-visible' : active }" >
+                <iframe frameborder="0" style="width: 70%; height: 350px; border:0"
+                v-bind:src="'http://www.google.com/maps/embed/v1/place?key=AIzaSyAJOugPtlkYVBxPXQD_qRex8qXTjzMFgFM&q='+ place" allowfullscreen></iframe>
+              </div>
         </div>
 
         <!--to add daily tasks-->
@@ -201,9 +124,10 @@
         <footer>&copy; IT Service Desk Managment </footer>
         <hr/><hr/>
         <!-- 1. Vue.js added here -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="https://unpkg.com/vue@2.0.3/dist/vue.js"></script>
+        <script src="https://unpkg.com/axios@0.12.0/dist/axios.min.js"></script>
+        <script src="https://unpkg.com/lodash@4.13.1/lodash.min.js"></script>
+
         <script src="project.js"></script>
     </body>
 </html>

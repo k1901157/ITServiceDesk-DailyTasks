@@ -1,0 +1,101 @@
+
+    #welcomeMessage{
+      font-size: 28px;
+      font-style: italic;
+      font-weight: 100;
+    }
+    #greetingMessage{
+      background-color: burlywood;
+      cursor: pointer;
+      text-align: center;
+
+      box-sizing: content-box;  
+      width: 150px;
+      height: 20px;
+      padding: 10px;  
+      border: 2px solid black;
+      color: black;
+      margin: 30px;
+    }
+    #addName{
+      background-color: burlywood;
+      cursor: pointer;
+      text-align: center;
+      color: black; 
+      border: none;
+      font-size: 16px;
+      margin: 30px;
+      border-style: solid;
+    }
+    .addNameList{
+      list-style-type: none;
+      margin: 5;
+      padding: 5;
+      text-align: left;
+      }
+    #app{
+      background-color: burlywood;
+      position: -webkit-sticky;
+      position: sticky;
+      padding: 5px;
+      border: 2px solid black;
+      font-family: 'Times New Roman', Times, serif;
+      color: black;
+      font-size: 16px;
+      margin: 30px;
+    }
+    #appGoogle{
+      background-color: burlywood;
+      position: -webkit-sticky;
+      position: sticky;
+      padding: 5px;
+      border: 2px solid black;
+      font-family: 'Times New Roman', Times, serif;
+      color: black;
+      font-size: 16px;
+      margin: 30px;
+    }
+    #api{
+      background-color: burlywood;
+      cursor: pointer;
+      text-align: center;
+      color: black; 
+      border: none;
+      font-size: 16px;
+      margin: 30px;
+      border-style: solid;
+    }
+
+    #yearlyEvaluation{
+      background-color: burlywood;
+      cursor: pointer;
+      text-align: center;
+      color: black; 
+      border: none;
+      font-size: 16px;
+      margin: 30px;
+      border-style: solid;
+    }
+
+.completed {
+  text-decoration: line-through;
+}
+h1 {
+  color:#FF0000;
+}
+body {
+    background-color:#FFEFD6;
+    }
+table, th, td {
+    border: 1px solid black;
+    padding: 5px;
+}
+table {
+    border-collapse: collapse;
+}
+.yearlyEvaluation{
+     text-align: left;
+     margin: 10px;
+     font-size: 20px;
+}
+
