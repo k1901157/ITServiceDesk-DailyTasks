@@ -15,3 +15,5 @@ in this web app there are a lot of sessions:
 •	using API to search names for more information if need it.
 
 •	the last part to give the evaluation for all tasks in one year.
+
+      As per the total number of your opening and closed tasks, you will get your yearly evaluation.
