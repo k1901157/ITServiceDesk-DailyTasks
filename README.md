@@ -10,7 +10,7 @@ in this web app there are a lot of sessions:
 
 •	adding the tasks to be completed.
   
-   you can add tasks and delete them, or mark then as completed.
+      you can add tasks and delete them, or mark then as completed.
 
 •	using API to search names for more information if need it.
 
