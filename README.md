@@ -1,6 +1,6 @@
 Sovelluskehitys
 
-Project
+Project/ It so simple app and the aim here how to read from API.
 
 IT Service Desk - Daily Tasks
 
