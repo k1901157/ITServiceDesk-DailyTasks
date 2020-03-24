@@ -26,7 +26,7 @@ var addName = new Vue({
   }
 })
 
-//code to maps (API).
+//code to show maps (API).
 var appGoogle = new Vue({
   el: '#appGoogle ',
   data: {
