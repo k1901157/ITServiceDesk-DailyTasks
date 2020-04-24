@@ -54,7 +54,7 @@ var appGoogle = new Vue({
   	// Geographic details
 	created() {
 		navigator.geolocation.getCurrentPosition(pos => {
-      console.log('got coordinates', pos.coords);
+      console.log('coordinates', pos.coords);
 			this.latitude = pos.coords.latitude;
       this.longitude = pos.coords.longitude;
       this.loadDetails();

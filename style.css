@@ -59,16 +59,7 @@
       font-size: 16px;
       margin: 30px;
     }
-    #api{
-      background-color: burlywood;
-      cursor: pointer;
-      text-align: center;
-      color: black; 
-      border: none;
-      font-size: 16px;
-      margin: 30px;
-      border-style: solid;
-    }
+
 
     #dailyEvaluation{
       background-color: burlywood;
@@ -103,7 +94,6 @@ table {
      font-size: 20px;
 }
 iframe{
-  
   height: 50;
   right: 50px;
   top: 315px;
