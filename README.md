@@ -14,6 +14,7 @@ in this web app there are a lot of sessions:
 
     -asking IT person to Enter his/her name. 
     -there is an ability to type new location in the field.
+    -showning Map (your lication in Google Map)
     -showing Latitude and Longitude.
     -getting location details from API
 
