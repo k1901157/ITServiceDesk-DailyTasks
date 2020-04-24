@@ -19,38 +19,48 @@
         </div>
         <!-- Greeting message --> <!--Greeting as per the time if it is morning or evening-->
         <div id="greetingMessage">
-          <span v-if="morning" class="greetingMessage">Good Morning All</span>
-          <span v-else class="greetingMessage">Good Evening All</span>
-        </div>
-        </div>
+            <span v-if="morning" class="greetingMessage">Good Morning All</span>
+            <span v-else class="greetingMessage">Good Evening All</span>
+          </div>
+          </div>
         <!-- Add name --> <!--here any user can write hie/her First and Last name-->
-        <div id="addName">
 
-        <h3>{{ title }}</h3>
-        
-        <input type="text" Fname="" value="" placeholder="First Name" v-model="FirstName"></br>
-        <input type="text" Lname="" value="" placeholder="Last Name" v-model="LastName">
-        <div></div>
-        <br>
-        <button type="button" Fname="button" @click="list.push({ name: FirstName + '   ' + LastName})">Add Your Name</button>
-        <ul class="addNameList"><!--adding this class for style purpose-->
-          <li v-for="item in list">Hello {{ item.name }}</li>
-        </ul>
-        </div>
         <!--showing the current location, and also the is an ability to enter your location manually-->
         <div id="appGoogle">
-          <h3>Enter New Location if you want</h3>
+          <!-- Add name --> <!--here any user can write hie/her First and Last name-->
+          <div id="addName">
+          <h3>{{ title }}</h3>
+        
+          <input type="text" Fname="" value="" placeholder="First Name" v-model="FirstName">
+          <input type="text" Lname="" value="" placeholder="Last Name" v-model="LastName">
+          <div></div>
+          <br>
+          <button type="button" Fname="button" @click="list.push({ name: FirstName + '   ' + LastName})">Add Your Name</button>
+          <ul class="addNameList"><!--adding this class for style purpose-->
+            <li v-for="item in list">Hello {{ item.name }}</span> Your Location is {{city}}, {{country}} please go ahead and add your tasks.</li>
+          </ul>
+          </div>
+
+          <h3>Enter New Location here</h3>
             <div class="row Map">
               <input type="text Map" class="form-control input-lg" placeholder="Enter Place Place" v-model="place">
             </div>
+            
+              <div><h3> City : {{city}}</h3></div>
+              <div><h3> Country : {{country}}</h3></div>
               <div><h3> Latitude : {{ latitude }}</h3></div>
               <div><h3> Longitude : {{ longitude }}</h3></div>
+              <div><h3> Current Tepm : {{currentTemp}}° </h3></div>
+              <div><h3> Min Temp {{minTemp}}° </h3></div>
+              <div><h3> Max Temp {{maxTemp}}° </h3>
 
               <div v-bind:class="{ 'not-visible' : active }" >
-                <iframe frameborder="0" style="width: 70%; height: 350px; border:0"
+                <iframe frameborder="0" style="width: 75%; height: 350px; border:0; margin-left:25%;margin-top:-10%;"
                 v-bind:src="'http://www.google.com/maps/embed/v1/place?key=AIzaSyAJOugPtlkYVBxPXQD_qRex8qXTjzMFgFM&q='+ place" allowfullscreen></iframe>
               </div>
+            </div>
         </div>
+
 
         <!--to add daily tasks-->
         <div id="app">
@@ -67,41 +77,19 @@
         </div>
         </div>
 
-        <!--show api and searching the exist names-->
-        <div id="api">
-            <h3>For more infomation please contact one of the below seniors to get advice by calling <a href="">2155</a></h3>
-            <!--adding search field-->
-            <input
-              type="text"
-              v-model.trim="search" 
-              placeholder="Search people..."
-              @keyup="getAllStarWarsPeople"
-            /><br />
-            <ul class="addNameList">
-              <li v-for="person in people" :key="person.id">
-                {{ person.name }}<!--show all names-->
-              </li>
-            </ul>
-        </div>
-
           <!--create table to put the numbe of open and closed tasks-->
-          <div id="yearlyEvaluation">
-                <div class="yearlyEvaluation">{{ title }}</div>
+          <div id="dailyEvaluation">
+                <div class="dailyEvaluation">{{ title }}</div>
                     <table>
                         <tr>
                             <th>Tasks</th>
-                            <th>First Quarter</th>
-                            <th>Second Quarter</th>
-                            <th>Third Quarter</th>
-                            <th>Fourth Quarter</th>
+                            <th>Number of Tasks</th>
                             <th>Total</th>
                         </tr>
                         <tr>
                             <td>Opening Tasks</td>
                             <td><input type="number" v-model.number="tasksFirstQuarter" /></td>
-                            <td><input type="number" v-model.number="tasksSecondQuarter" /></td>
-                            <td><input type="number" v-model.number="tasksThirdQuarter" /></td>
-                            <td><input type="number" v-model.number="tasksFourthQuarter" /></td>
+
                             
                             <td>{{ OpenTasksTotal }}</td><!--total number of open tasks-->
                         </tr>
@@ -111,11 +99,11 @@
                             <td>{{ closedTasksTotal }}</td><!--total number of closed tasks-->
                         </tr>
                         <tr>
-                            <td colspan="2"><strong>Total Tasks per Year</strong></td>
-                            <td><strong>{{ yearTotal }}</strong></td><!--total number of closed and open tasks-->
+                            <td colspan="2"><strong>Total Tasks this Day</strong></td>
+                            <td><strong>{{ dayTotal }}</strong></td><!--total number of closed and open tasks-->
                         </tr>
                     </table>
-                    <p>Your Evaluation this Year is <strong>{{ status }}</strong></p><!--getting evaluation-->
+                    <p>Your Evaluation this Day is <strong>{{ status }}</strong></p><!--getting evaluation-->
                 </div>
             </div>
         </div>
