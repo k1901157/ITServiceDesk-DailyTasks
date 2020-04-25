@@ -17,6 +17,7 @@ var greetingMessage = new Vue({
 var appGoogle = new Vue({
   el: '#appGoogle ',
   data: {
+    
     place: 'Your location',//show the current location for everyone.
     country:'',
     city:'',
@@ -33,7 +34,7 @@ var appGoogle = new Vue({
     ],
     newItem: '',
     FirstName: '',
-    LastName: '',
+    LastName: ''
 
   },
   //The watch is used to ensure that the API call only happens when there is at-least 3 character in our input field.
@@ -51,7 +52,7 @@ var appGoogle = new Vue({
     }
   },
 
-  	// Geographic details
+  	// Geographic details... getting location automatically .
 	created() {
 		navigator.geolocation.getCurrentPosition(pos => {
       console.log('coordinates', pos.coords);
@@ -71,6 +72,7 @@ var appGoogle = new Vue({
 
             .then(function (response) {
               app.city = app.place;
+              //getting geolocation from google api
               app.latitude = response.data.results[0].geometry.location.lat;
               app.longitude = response.data.results[0].geometry.location.lng;
             })
@@ -93,22 +95,22 @@ var appGoogle = new Vue({
 
       })
       .catch(error => {
-        console.log('error');
+        console.log('Invlid location');
       });
     },
 
     // geeting weather and more details as per geo current location
 		loadDetails() {
-			axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${this.latitude}&lon=${this.longitude}&units=metric&appid=ad111a052c4e8b531d0548502347b942`)
+      var app = this;
+			axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${app.latitude}&lon=${app.longitude}&units=metric&appid=ad111a052c4e8b531d0548502347b942`)
 			.then(response => {
 				console.log('response',response.data);
 	
-                this.city = response.data.name;
-                this.country = response.data.sys.country;
-                this.currentTemp = response.data.main.temp;
-                this.minTemp = response.data.main.temp_min;
-                this.maxTemp = response.data.main.temp_max;
-				this.loading = false;	
+                app.city = response.data.name;
+                app.country = response.data.sys.country;
+                app.currentTemp = response.data.main.temp;
+                app.minTemp = response.data.main.temp_min;
+                app.maxTemp = response.data.main.temp_max;	
 			})
 			.catch(error => {
 				alert('Geolocation loading error')

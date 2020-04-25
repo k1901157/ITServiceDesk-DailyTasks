@@ -23,7 +23,6 @@
             <span v-else class="greetingMessage">Good Evening All</span>
           </div>
           </div>
-        <!-- Add name --> <!--here any user can write hie/her First and Last name-->
 
         <!--showing the current location, and also the is an ability to enter your location manually-->
         <div id="appGoogle">
@@ -45,15 +44,15 @@
             <div class="row Map">
               <input type="text Map" class="form-control input-lg" placeholder="Enter Place Place" v-model="place">
             </div>
-            
+              <!--getting your location details like, city, country, tepm, etc...-->
               <div><h3> City : {{city}}</h3></div>
               <div><h3> Country : {{country}}</h3></div>
-              <div><h3> Latitude : {{ latitude }}</h3></div>
-              <div><h3> Longitude : {{ longitude }}</h3></div>
+              <div><h3> Latitude : {{latitude}}</h3></div>
+              <div><h3> Longitude : {{longitude}}</h3></div>
               <div><h3> Current Tepm : {{currentTemp}}° </h3></div>
               <div><h3> Min Temp {{minTemp}}° </h3></div>
               <div><h3> Max Temp {{maxTemp}}° </h3>
-
+              <!--showing your location in the map-->
               <div v-bind:class="{ 'not-visible' : active }" >
                 <iframe frameborder="0" style="width: 75%; height: 350px; border:0; margin-left:25%;margin-top:-10%;"
                 v-bind:src="'http://www.google.com/maps/embed/v1/place?key=AIzaSyAJOugPtlkYVBxPXQD_qRex8qXTjzMFgFM&q='+ place" allowfullscreen></iframe>
