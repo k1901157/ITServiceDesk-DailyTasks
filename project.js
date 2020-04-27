@@ -18,7 +18,8 @@ var appGoogle = new Vue({
   el: '#appGoogle ',
   data: {
     
-    place: 'Your location',//show the current location for everyone.
+    loading: true,
+    place: '',
     country:'',
     city:'',
     latitude: '',
@@ -68,15 +69,28 @@ var appGoogle = new Vue({
       app.latitude = "Searching...";
       app.longitude = "Searching...";
       //trying to get details from google
-      axios.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + app.place)
+      axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${app.place}&units=metric&APPID=ad111a052c4e8b531d0548502347b942`)
 
             .then(function (response) {
               app.city = app.place;
-              //getting geolocation from google api
-              app.latitude = response.data.results[0].geometry.location.lat;
-              app.longitude = response.data.results[0].geometry.location.lng;
+              app.city = response.data.name;
+              app.country = response.data.sys.country;
+              app.currentTemp = response.data.main.temp;
+              app.minTemp = response.data.main.temp_min;
+              app.maxTemp = response.data.main.temp_max;
+              app.latitude = response.data.coord.lat;
+              app.longitude = response.data.coord.lon;
+              loading = false;
             })
             .catch(function (error) {
+              alert('Invlid location');
+              
+              app.city = "Invalid place";
+              app.city = "Invalid place";
+              app.country = "Invalid place";
+              app.currentTemp = "Invalid place";
+              app.minTemp = "Invalid place";
+              app.maxTemp = "Invalid place";
               app.latitude = "Invalid place";
               app.longitude = "Invalid place";
             })
@@ -84,14 +98,17 @@ var appGoogle = new Vue({
     //geeting weather and more details by searching new city.
     getDetails() {
       var app = this;
-      axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${app.place}&units=metric&APPID=ad111a052c4e8b531d0548502347b942`)
+      axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${app.place}&units=metric&APPID=ad111a052c4e8b531d0548502347b942`)
       
         .then(response => {
+          console.log('response',response.data);
+
           app.city = response.data.name;
           app.country = response.data.sys.country;
           app.currentTemp = response.data.main.temp;
           app.minTemp = response.data.main.temp_min;
           app.maxTemp = response.data.main.temp_max;
+          loading = false;
 
       })
       .catch(error => {
@@ -104,13 +121,15 @@ var appGoogle = new Vue({
       var app = this;
 			axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${app.latitude}&lon=${app.longitude}&units=metric&appid=ad111a052c4e8b531d0548502347b942`)
 			.then(response => {
-				console.log('response',response.data);
-	
+        console.log('response',response.data);
+        
+                app.place = response.data.name;
                 app.city = response.data.name;
                 app.country = response.data.sys.country;
                 app.currentTemp = response.data.main.temp;
                 app.minTemp = response.data.main.temp_min;
-                app.maxTemp = response.data.main.temp_max;	
+                app.maxTemp = response.data.main.temp_max;
+                loading= false;
 			})
 			.catch(error => {
 				alert('Geolocation loading error')
