@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
     <head>
-        <!-- Required meta tags -->
+
         <meta charset="utf-8">
 
         <title>Help Disck Tasks </title>
@@ -28,20 +28,23 @@
         <div id="appGoogle">
           <!-- Add name --> <!--here any user can write hie/her First and Last name-->
           <div id="addName">
-          <h3>{{ title }}</h3>
+             <h3>{{ titleName }}</h3>
         
-          <input type="text" Fname="" value="" placeholder="First Name" v-model="FirstName">
-          <input type="text" Lname="" value="" placeholder="Last Name" v-model="LastName">
-          <div></div>
-          <br>
-          <button type="button" Fname="button" @click="list.push({ name: FirstName + '   ' + LastName})">Add Your Name</button>
-          <ul class="addNameList"><!--adding this class for style purpose-->
-            <li v-for="item in list">Hello {{ item.name }}</span> Your Location is {{city}}, {{country}} please go ahead and add your tasks.</li>
-          </ul>
+             <input type="text" Fname="" value="" placeholder="First Name" v-model="FirstName">
+             <input type="text" Lname="" value="" placeholder="Last Name" v-model="LastName">
+             <div></div>
+             <br>
+             <button type="button" Fname="button" @click="listName.push({ name: FirstName + '   ' + LastName})">Add Your Name</button>
+             <ul class="addNameList"><!--adding this class for style purpose-->
+               <!--once the name added, then it will write down in which location you are located on-->
+               <li v-for="item in listName">Hello {{ item.name }}</span> Your Location is {{city}}, {{country}} please go ahead and add your tasks.</li>
+             </ul>
           </div>
 
+          <!--location-->
           <h3>Enter New Location here</h3>
             <div class="row Map">
+              <!--adding new location manually-->
               <input type="text Map" class="form-control input-lg" placeholder="Enter Place Place" v-model="place">
             </div>
               <!--getting your location details like, city, country, tepm, etc...-->
@@ -58,54 +61,49 @@
                 v-bind:src="'https://www.google.com/maps/embed/v1/place?key=AIzaSyAJOugPtlkYVBxPXQD_qRex8qXTjzMFgFM&q='+ place" allowfullscreen></iframe>
               </div>
             </div>
-        </div>
+            <hr>
+            <!--to add daily tasks-->
+            <h3>{{ titleTasks }} in {{city}}, {{country}}</h3>
+            <ul><!--once clicked the the task already completed-->
+                <li v-for="item in listTasks" :class="{ completed: item.completed }" @click="item.completed=!item.completed">{{ item.name }}</li>
+            </ul>
+              <input type="text" name="" value="" v-model="newItem">
+              <button type="button" name="button" @click="listTasks.push({ name: newItem, completed: false})">Add Task</button>
+              <button type="button" name="button" @click="listTasks.pop()">Delete the Last Task</button>
+    
+            <h4>{{ description }}</h4>
+    
+           <hr>
+           <!--create table to put the numbe of open and closed tasks-->
+               <h3>{{ titleEvaluation}} in {{city}}, {{country}}</h3>
+            <table>
+              <tr>
+                  <th>Tasks</th>
+                  <th>Number of Tasks</th>
+                  <th>Total</th>
+              </tr>
+              <tr>
+                  <td>Opening Tasks</td>
+                  <td><input type="number" v-model.number="tasksOneDay" /></td>
 
-
-        <!--to add daily tasks-->
-        <div id="app">
-            <h3>{{ title }}</h3>
-        <ul><!--once clicked the the task already completed-->
-            <li v-for="item in list" :class="{ completed: item.completed }" @click="item.completed=!item.completed">{{ item.name }}</li>
-        </ul>
-          <input type="text" name="" value="" v-model="newItem">
-          <button type="button" name="button" @click="list.push({ name: newItem, completed: false})">Add Task</button>
-          <button type="button" name="button" @click="list.pop()">Delete the Last Task</button>
-
-           <h4>{{ description }}</h4>
-
-        </div>
-        </div>
-
-          <!--create table to put the numbe of open and closed tasks-->
-          <div id="dailyEvaluation">
-                <div class="dailyEvaluation">{{ title }}</div>
-                    <table>
-                        <tr>
-                            <th>Tasks</th>
-                            <th>Number of Tasks</th>
-                            <th>Total</th>
-                        </tr>
-                        <tr>
-                            <td>Opening Tasks</td>
-                            <td><input type="number" v-model.number="tasksFirstQuarter" /></td>
-
-                            
-                            <td>{{ OpenTasksTotal }}</td><!--total number of open tasks-->
-                        </tr>
-                        <tr>
-                            <td>Closed Tasks</td>
-                            <td v-for="item in closedTasks"><input type="number" v-model.number="item.value" /></td>
-                            <td>{{ closedTasksTotal }}</td><!--total number of closed tasks-->
-                        </tr>
-                        <tr>
-                            <td colspan="2"><strong>Total Tasks this Day</strong></td>
-                            <td><strong>{{ dayTotal }}</strong></td><!--total number of closed and open tasks-->
-                        </tr>
-                    </table>
-                    <p>Your Evaluation this Day is <strong>{{ status }}</strong></p><!--getting evaluation-->
-                </div>
-            </div>
-        </div>
+                  
+                  <td>{{ OpenTasksTotal }}</td><!--total number of open tasks-->
+              </tr>
+              <tr>
+                  <td>Closed Tasks</td>
+                  <td v-for="item in closedTasks"><input type="number" v-model.number="item.value" /></td>
+                  <td>{{ closedTasksTotal }}</td><!--total number of closed tasks-->
+              </tr>
+              <tr>
+                  <td colspan="2"><strong>Total Tasks this Day</strong></td>
+                  <td><strong>{{ dayTotal }}</strong></td><!--total number of closed and open tasks-->
+              </tr>
+          </table>
+          <p>Your Evaluation this Day in {{city}}, {{country}} is <strong>{{ status }}</strong></p><!--getting evaluation-->
+       </div>
+    </div>
+  </div>
+</div>
 
         <hr/><hr/>
         <footer>&copy; IT Service Desk Managment </footer>

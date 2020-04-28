@@ -13,7 +13,7 @@ var greetingMessage = new Vue({
   }
 })
 
-//code to show maps (API).
+//code to show maps your location From API (google map) and getting more details about your location.
 var appGoogle = new Vue({
   el: '#appGoogle ',
   data: {
@@ -28,16 +28,34 @@ var appGoogle = new Vue({
     currentTemp: '',
     minTemp: '',
     maxTemp:'',
-
-    title: "Add your First and Last name", //variable for Add Name.
-    list: [
+    
+    // for adding new first and last name.
+    titleName: "Add your First and Last name", //variable for Add Name.
+    listName: [
 
     ],
     newItem: '',
     FirstName: '',
-    LastName: ''
+    LastName: '',
 
+    //fot tasks.
+    titleTasks: "Tasks to be completed ",
+    amountTasks:"Number of Tasks",
+    listTasks: [
+        
+    ],
+    newItem: '',
+
+    //for Daily Evaluation table.
+    titleEvaluation: "Daily Evaluation",
+    tasksOneDay: 0, // variables for opening tasks.
+
+
+    closedTasks : [ // values of closed tasks
+        { value: 0 },
+    ]
   },
+
   //The watch is used to ensure that the API call only happens when there is at-least 3 character in our input field.
   watch: { 
     place: function() {
@@ -53,22 +71,52 @@ var appGoogle = new Vue({
     }
   },
 
-  	// Geographic details... getting location automatically .
+  // Geographic details... getting location automatically .
 	created() {
 		navigator.geolocation.getCurrentPosition(pos => {
       console.log('coordinates', pos.coords);
 			this.latitude = pos.coords.latitude;
       this.longitude = pos.coords.longitude;
-      this.loadDetails();
+      this.loadDetails();// getting from this method all details that we need once the app started.
 		});
   },
+
   
-   methods: {//once serching new location
+  computed: {
+    //for dailly tasks.
+    description: function() {
+      return this.amountTasks + ' (' + this.listTasks.length + ' Tasks)'; //number of tasks has been created.
+    },
+
+    //for Daily Evaluation table.
+      OpenTasksTotal: function() { //  total tasks of opening tasks.
+          return this.tasksOneDay;
+      },
+      closedTasksTotal: function() { // total tasks of closed tasks.
+          return this.closedTasks.reduce((acc, item) => acc + item.value, 0);
+      },
+      dayTotal : function() { // total task for one year.
+          return this.OpenTasksTotal + this.closedTasksTotal;
+      },
+      status : function() { // getting evaluation as per the number of tasks.
+          if(this.dayTotal < 10) {
+              return 'poor';
+
+          } else {
+              return 'good';
+          }
+      },   
+    },
+  
+   methods: {
+     //once serching new location
     lookupCoordinates: _.debounce(function() {
       var app = this;
+      app.city = "Searching...";
+      app.country = "Searching...";
       app.latitude = "Searching...";
       app.longitude = "Searching...";
-      //trying to get details from google
+      //trying to get details from API
       axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${app.place}&units=metric&APPID=ad111a052c4e8b531d0548502347b942`)
 
             .then(function (response) {
@@ -84,18 +132,18 @@ var appGoogle = new Vue({
             })
             .catch(function (error) {
               alert('Invlid location');
-              
-              app.city = "Invalid place";
+
               app.city = "Invalid place";
               app.country = "Invalid place";
-              app.currentTemp = "Invalid place";
-              app.minTemp = "Invalid place";
-              app.maxTemp = "Invalid place";
               app.latitude = "Invalid place";
               app.longitude = "Invalid place";
+              app.currentTemp = "Error";
+              app.minTemp = "Error";
+              app.maxTemp = "Error";
+
             })
     }, 500),
-    //geeting weather and more details by searching new city.
+    //geeting more details by searching new city.
     getDetails() {
       var app = this;
       axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${app.place}&units=metric&APPID=ad111a052c4e8b531d0548502347b942`)
@@ -116,7 +164,7 @@ var appGoogle = new Vue({
       });
     },
 
-    // geeting weather and more details as per geo current location
+    // geeting more details as per geo current location
 		loadDetails() {
       var app = this;
 			axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${app.latitude}&lon=${app.longitude}&units=metric&appid=ad111a052c4e8b531d0548502347b942`)
@@ -140,65 +188,9 @@ var appGoogle = new Vue({
     this.getDetails();
   },
 
-})
-
-//code to add tasks.
-var app = new Vue({
-  el: '#app',
-  data: {
-    title: "Tasks to be completed ",
-    amount:"Number of Tasks",
-    list: [
-        
-    ],
-    newItem: '',
-
-  },
-
-  computed: {
-    description: function() {
-      return this.amount + ' (' + this.list.length + ' Tasks)'; //number of tasks has been created.
-    }
-  },
-
-  methods: {
+  //for task, adding new task.
     addToList: function () {
-      this.list.push({ name: this.newItem, completed: false})
+      this.listTasks.push({ name: this.newItem, completed: false})
     },
-}
-})
-
-
-// code for Daily Evaluation table,
-var dailyEvaluation = new Vue ({
-  el: '#dailyEvaluation',
-  data: {
-    title: "Daily Evaluation",
-      tasksFirstQuarter: 0, // variables for opening tasks.
-
-
-      closedTasks : [ // values of closed tasks
-          { value: 0 },
-      ]
-  },
-  computed: {
-    OpenTasksTotal: function() { //  total tasks of opening tasks.
-          return this.tasksFirstQuarter;
-      },
-      closedTasksTotal: function() { // total tasks of closed tasks.
-          return this.closedTasks.reduce((acc, item) => acc + item.value, 0);
-      },
-      dayTotal : function() { // total task for one year.
-          return this.OpenTasksTotal + this.closedTasksTotal;
-      },
-      status : function() { // getting evaluation as per the number of tasks.
-          if(this.dayTotal < 10) {
-              return 'poor';
-
-          } else {
-              return 'good';
-          }
-      }   
-  }
 })
 
