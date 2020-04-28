@@ -89,17 +89,17 @@ var appGoogle = new Vue({
     },
 
     //for Daily Evaluation table.
+    //nubmer of yasks will be increast once the task created
       OpenTasksTotal: function() { //  total tasks of opening tasks.
-          return this.tasksOneDay;
+          return this.listTasks.length ;
       },
-      closedTasksTotal: function() { // total tasks of closed tasks.
-          return this.closedTasks.reduce((acc, item) => acc + item.value, 0);
-      },
+      //total daily tasks.
       dayTotal : function() { // total task for one year.
-          return this.OpenTasksTotal + this.closedTasksTotal;
+          return this.OpenTasksTotal;
       },
+      // over 5 tasks per day, it will give you good evaliuation.
       status : function() { // getting evaluation as per the number of tasks.
-          if(this.dayTotal < 10) {
+          if(this.dayTotal < 5) {
               return 'poor';
 
           } else {
